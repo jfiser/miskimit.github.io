@@ -211,12 +211,14 @@ function draw() {
 }
 
 function drawTween() {
-
-  if(clearCanv) clearCanvas();
+  if(clearCanv){
+    clearCanvas();
+  }
   canvasBackground();
-  tweenBalls();
   drawObjects();
-  requestAnimationFrame(drawTween);
+  if(!paused){
+    requestAnimationFrame(drawTween);
+  }
 }
 
 function tweenBalls(){
@@ -229,21 +231,7 @@ function tweenBalls(){
   }
 }
 
-function logger() {
-    //log some stuff
-}
-
-// spawn the initial small thingies.
-//for (i = 0; i<2; i++) {
-   // objArray[objArray.length] = new Ball(randomX(), randomY(), randomRadius());
-//}
-
 bigBalls = true;
-
-// manually spawn the few large ones that
-// start with no velocity. because i'm lazy.
-setCircles(100, 120, 14);
-//setCircles(15, 70);
 
 function setCircles(numNodes, radius, ballRadius){
     var angle, x, y;
@@ -278,59 +266,11 @@ function setCircles(numNodes, radius, ballRadius){
         k++;
     }
 
-
-    /*for (i = 0; i<numNodes; i++) {
-        angle = (i / (numNodes/2)) * Math.PI; // Calculate the angle at which the element will be placed.
-
-        x = (radius * Math.cos(angle)) + (width/2); // Calculate the x position of the element.
-        y = (radius * Math.sin(angle)) + (width/2); // Calculate the y position of the element.
-
-        //var temp = new Ball(randomX(), randomY(), randomRadius());
-        var temp = new Ball(x, y, 11);
-
-        temp.dx = 0;
-        temp.dy = 0;
-        objArray[objArray.length] = temp;
-    }*/
 }
 
-// brought in
-function concentricCircles(){
-    // center of the circles
-    var centerx = 350;
-    var centery = 350;
-    // start drawing the central (first) element
-    if ( items.length > 0 ) {
-    // draw item at centerx, centery
-    }
-    var k = 1;
-    var i = 1;
-    while ( i < items.length ) {
-        // number of elements on this circle
-        var steps = k * 6;
-        // angular distance between elements
-        var angle_range = 2 * Math.PI / steps;
-        // every circle is bigger then the previuos of the same amount
-        var radius = k * 60;
-        var j = 0;
-        while ( j < steps  &&  i < items.length ) {
-            var angle = j * angle_range;
-            var x = Math.round(centerx + radius * Math.cos(angle));
-            var y = Math.round(centery + radius * Math.sin(angle));
-            //draw item at x,y
-
-            i++;
-            j++;
-        }
-        k++;
-    }
-}
-
-// and manually spawn one large ball WITH initial velocity.
-// just to impart some more initial energy in the system.
-//objArray[objArray.length] = new Ball(randomX(), randomY(), 11);
-
+setCircles(100, 120, 14);
 //draw();
-drawTween();
 
+drawTween();
+tweenBalls();
 //*********************** */

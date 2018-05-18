@@ -10,6 +10,9 @@ function Ball(x, y, radius) {
     this.color = randomColor();
     this.draw = function() {
         ctx.beginPath();
+        console.log("x: " + this.x);
+        console.log("y: " + this.y);
+
         ctx.arc(Math.round(this.x), Math.round(this.y), this.radius, 0, 2*Math.PI);
         ctx.fillStyle = this.color;
         ctx.fill();

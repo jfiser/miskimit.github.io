@@ -170,7 +170,7 @@
             ctx.rotate( _this.pos.r*(Math.PI/180) );  
          
             ctx.beginPath();
-            ctx.moveTo(_this.coords[0].x,_this.coords[0].y);
+            ctx.moveTo(_this.coords[0].x, _this.coords[0].y);
             ctx.lineTo(_this.coords[1].x, _this.coords[1].y);
             ctx.lineTo(_this.coords[2].x, _this.coords[2].y);
             ctx.closePath();
