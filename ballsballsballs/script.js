@@ -223,26 +223,35 @@ bigBalls = true;
 
 // manually spawn the few large ones that
 // start with no velocity. because i'm lazy.
-var numNodes = 27;
-var radius = 150;
-var width = (radius * 2) + 50;
-for (i = 0; i<numNodes; i++) {
-    angle = (i / (numNodes/2)) * Math.PI; // Calculate the angle at which the element will be placed.
+//var numNodes = 27;
+//var radius = 120;
+//var width = (radius * 2) + 150;
+setCircles(27, 120);
+setCircles(15, 70);
 
-    var x = (radius * Math.cos(angle)) + (width/2); // Calculate the x position of the element.
-    var y = (radius * Math.sin(angle)) + (width/2); // Calculate the y position of the element.
+function setCircles(numNodes, radius){
+    var angle, x, y, width = (radius*2) + 150;
 
-    //var temp = new Ball(randomX(), randomY(), randomRadius());
-    var temp = new Ball(x, y, 15);
+    for (i = 0; i<numNodes; i++) {
+        angle = (i / (numNodes/2)) * Math.PI; // Calculate the angle at which the element will be placed.
 
-    temp.dx = 0;
-    temp.dy = 0;
-    objArray[objArray.length] = temp;
+        x = (radius * Math.cos(angle)) + (width/2); // Calculate the x position of the element.
+        y = (radius * Math.sin(angle)) + (width/2); // Calculate the y position of the element.
+
+        //var temp = new Ball(randomX(), randomY(), randomRadius());
+        var temp = new Ball(x, y, 11);
+
+        temp.dx = 0;
+        temp.dy = 0;
+        objArray[objArray.length] = temp;
+    }
 }
+
+
 
 // and manually spawn one large ball WITH initial velocity.
 // just to impart some more initial energy in the system.
-objArray[objArray.length] = new Ball(randomX(), randomY(), 15);
+//objArray[objArray.length] = new Ball(randomX(), randomY(), 11);
 
 draw();
 
