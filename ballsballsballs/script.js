@@ -21,6 +21,7 @@ var soundOn = true;
 var clearCanv = true;
 
 var bigBalls = false;
+var CENTER_X = canvas.width/2, CENTER_Y = canvas.height/2;
 
 document.addEventListener("keydown", keyDownHandler);
 document.addEventListener("keyup", keyUpHandler);
@@ -215,7 +216,9 @@ function drawTween() {
     clearCanvas();
   }
   canvasBackground();
+
   drawObjects();
+
   if(!paused){
     requestAnimationFrame(drawTween);
   }
@@ -223,10 +226,10 @@ function drawTween() {
 
 function tweenBalls(){
   for(var i = 0; i < objArray.length; i++){
-    TweenLite.to(objArray[i], 2, {
-      x: 200,
-      y: 200,
-      ease: Linear
+    TweenLite.to(objArray[i], 7, {
+      x: CENTER_X,
+      y: CENTER_Y,
+      ease: Elastic.easeOut
     });
   }
 }
@@ -237,8 +240,6 @@ function setCircles(numNodes, radius, ballRadius){
     var angle, x, y;
     var spaceBetween = ballRadius + 5; //15; 
     // center of the circles
-    var centerx = canvas.width/2; //350;
-    var centery = canvas.height/2; //350;  
     
     var k = 5;
     var i = 1;
@@ -253,8 +254,8 @@ function setCircles(numNodes, radius, ballRadius){
         var j = 0;
         while ( j < steps  &&  i < numNodes ) {
             var angle = j * angle_range;
-            var x = Math.round(centerx + radius * Math.cos(angle));
-            var y = Math.round(centery + radius * Math.sin(angle));
+            var x = Math.round(CENTER_X + radius * Math.cos(angle));
+            var y = Math.round(CENTER_Y + radius * Math.sin(angle));
 
             var tmpBall = new Ball(x, y, ballRadius);
             tmpBall.dx = 0;
