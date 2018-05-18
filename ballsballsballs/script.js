@@ -210,6 +210,25 @@ function draw() {
     //requestAnimationFrame(draw);
 }
 
+function drawTween() {
+
+  if(clearCanv) clearCanvas();
+  canvasBackground();
+  tweenBalls();
+  drawObjects();
+  requestAnimationFrame(drawTween);
+}
+
+function tweenBalls(){
+  for(var i = 0; i < objArray.length; i++){
+    TweenLite.to(objArray[i], 2, {
+      x: 200,
+      y: 200,
+      ease: Linear
+    });
+  }
+}
+
 function logger() {
     //log some stuff
 }
@@ -223,11 +242,12 @@ bigBalls = true;
 
 // manually spawn the few large ones that
 // start with no velocity. because i'm lazy.
-setCircles(100, 120, 11);
+setCircles(100, 120, 14);
 //setCircles(15, 70);
 
 function setCircles(numNodes, radius, ballRadius){
-    var angle, x, y, spaceBetween = 15; // width = (radius*2) + 150;
+    var angle, x, y;
+    var spaceBetween = ballRadius + 5; //15; 
     // center of the circles
     var centerx = canvas.width/2; //350;
     var centery = canvas.height/2; //350;  
@@ -248,12 +268,10 @@ function setCircles(numNodes, radius, ballRadius){
             var x = Math.round(centerx + radius * Math.cos(angle));
             var y = Math.round(centery + radius * Math.sin(angle));
 
-            var temp = new Ball(x, y, ballRadius);
-
-            temp.dx = 0;
-            temp.dy = 0;
-            objArray[objArray.length] = temp;    
-
+            var tmpBall = new Ball(x, y, ballRadius);
+            tmpBall.dx = 0;
+            tmpBall.dy = 0;
+            objArray[objArray.length] = tmpBall;    
             i++;
             j++;
         }
@@ -275,6 +293,7 @@ function setCircles(numNodes, radius, ballRadius){
         objArray[objArray.length] = temp;
     }*/
 }
+
 // brought in
 function concentricCircles(){
     // center of the circles
@@ -311,6 +330,7 @@ function concentricCircles(){
 // just to impart some more initial energy in the system.
 //objArray[objArray.length] = new Ball(randomX(), randomY(), 11);
 
-draw();
+//draw();
+drawTween();
 
 //*********************** */
