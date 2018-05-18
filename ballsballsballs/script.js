@@ -207,7 +207,7 @@ function draw() {
     staticCollision();
     ballCollision();
     //logger();
-    requestAnimationFrame(draw);
+    //requestAnimationFrame(draw);
 }
 
 function logger() {
@@ -223,13 +223,45 @@ bigBalls = true;
 
 // manually spawn the few large ones that
 // start with no velocity. because i'm lazy.
-setCircles(27, 120);
+setCircles(100, 120, 11);
 //setCircles(15, 70);
 
-function setCircles(numNodes, radius){
-    var angle, x, y, width = (radius*2) + 150;
+function setCircles(numNodes, radius, ballRadius){
+    var angle, x, y, spaceBetween = 15; // width = (radius*2) + 150;
+    // center of the circles
+    var centerx = canvas.width/2; //350;
+    var centery = canvas.height/2; //350;  
+    
+    var k = 5;
+    var i = 1;
+    while ( i < numNodes ) {
+        // number of elements on this circle
+        var steps = k * 6;
+        // angular distance between elements
+        var angle_range = 2 * Math.PI / steps;
+        // every circle is bigger then the previuos of the same amount
+        //var radius = k * 30;
+        var radius = k * (ballRadius + spaceBetween);
+        var j = 0;
+        while ( j < steps  &&  i < numNodes ) {
+            var angle = j * angle_range;
+            var x = Math.round(centerx + radius * Math.cos(angle));
+            var y = Math.round(centery + radius * Math.sin(angle));
 
-    for (i = 0; i<numNodes; i++) {
+            var temp = new Ball(x, y, ballRadius);
+
+            temp.dx = 0;
+            temp.dy = 0;
+            objArray[objArray.length] = temp;    
+
+            i++;
+            j++;
+        }
+        k++;
+    }
+
+
+    /*for (i = 0; i<numNodes; i++) {
         angle = (i / (numNodes/2)) * Math.PI; // Calculate the angle at which the element will be placed.
 
         x = (radius * Math.cos(angle)) + (width/2); // Calculate the x position of the element.
@@ -241,18 +273,8 @@ function setCircles(numNodes, radius){
         temp.dx = 0;
         temp.dy = 0;
         objArray[objArray.length] = temp;
-    }
+    }*/
 }
-
-
-
-// and manually spawn one large ball WITH initial velocity.
-// just to impart some more initial energy in the system.
-//objArray[objArray.length] = new Ball(randomX(), randomY(), 11);
-
-draw();
-
-//*********************** */
 // brought in
 function concentricCircles(){
     // center of the circles
@@ -284,3 +306,11 @@ function concentricCircles(){
         k++;
     }
 }
+
+// and manually spawn one large ball WITH initial velocity.
+// just to impart some more initial energy in the system.
+//objArray[objArray.length] = new Ball(randomX(), randomY(), 11);
+
+draw();
+
+//*********************** */
