@@ -223,11 +223,8 @@ bigBalls = true;
 
 // manually spawn the few large ones that
 // start with no velocity. because i'm lazy.
-//var numNodes = 27;
-//var radius = 120;
-//var width = (radius * 2) + 150;
 setCircles(27, 120);
-setCircles(15, 70);
+//setCircles(15, 70);
 
 function setCircles(numNodes, radius){
     var angle, x, y, width = (radius*2) + 150;
@@ -257,20 +254,33 @@ draw();
 
 //*********************** */
 // brought in
-function createNodes(numNodes, radius) {
-    var nodes = [], 
-        width = (radius * 2) + 50,
-        height = (radius * 2) + 50,
-        angle,
-        x,
-        y,
-        i;
-    for (i=0; i<numNodes; i++) {
-     angle = (i / (numNodes/2)) * Math.PI; // Calculate the angle at which the element will be placed.
-                                           // For a semicircle, we would use (i / numNodes) * Math.PI.
-     x = (radius * Math.cos(angle)) + (width/2); // Calculate the x position of the element.
-     y = (radius * Math.sin(angle)) + (width/2); // Calculate the y position of the element.
-     nodes.push({'id': i, 'x': x, 'y': y});
+function concentricCircles(){
+    // center of the circles
+    var centerx = 350;
+    var centery = 350;
+    // start drawing the central (first) element
+    if ( items.length > 0 ) {
+    // draw item at centerx, centery
     }
-    return nodes;
-  }
+    var k = 1;
+    var i = 1;
+    while ( i < items.length ) {
+        // number of elements on this circle
+        var steps = k * 6;
+        // angular distance between elements
+        var angle_range = 2 * Math.PI / steps;
+        // every circle is bigger then the previuos of the same amount
+        var radius = k * 60;
+        var j = 0;
+        while ( j < steps  &&  i < items.length ) {
+            var angle = j * angle_range;
+            var x = Math.round(centerx + radius * Math.cos(angle));
+            var y = Math.round(centery + radius * Math.sin(angle));
+            //draw item at x,y
+
+            i++;
+            j++;
+        }
+        k++;
+    }
+}
