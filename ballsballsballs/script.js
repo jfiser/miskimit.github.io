@@ -215,16 +215,26 @@ function logger() {
 }
 
 // spawn the initial small thingies.
-for (i = 0; i<160; i++) {
-    objArray[objArray.length] = new Ball(randomX(), randomY(), randomRadius());
-}
+//for (i = 0; i<2; i++) {
+   // objArray[objArray.length] = new Ball(randomX(), randomY(), randomRadius());
+//}
 
 bigBalls = true;
 
 // manually spawn the few large ones that
 // start with no velocity. because i'm lazy.
-for (i = 0; i<7; i++) {
-    var temp = new Ball(randomX(), randomY(), randomRadius());
+var numNodes = 27;
+var radius = 150;
+var width = (radius * 2) + 50;
+for (i = 0; i<numNodes; i++) {
+    angle = (i / (numNodes/2)) * Math.PI; // Calculate the angle at which the element will be placed.
+
+    var x = (radius * Math.cos(angle)) + (width/2); // Calculate the x position of the element.
+    var y = (radius * Math.sin(angle)) + (width/2); // Calculate the y position of the element.
+
+    //var temp = new Ball(randomX(), randomY(), randomRadius());
+    var temp = new Ball(x, y, 15);
+
     temp.dx = 0;
     temp.dy = 0;
     objArray[objArray.length] = temp;
@@ -235,3 +245,23 @@ for (i = 0; i<7; i++) {
 objArray[objArray.length] = new Ball(randomX(), randomY(), 15);
 
 draw();
+
+//*********************** */
+// brought in
+function createNodes(numNodes, radius) {
+    var nodes = [], 
+        width = (radius * 2) + 50,
+        height = (radius * 2) + 50,
+        angle,
+        x,
+        y,
+        i;
+    for (i=0; i<numNodes; i++) {
+     angle = (i / (numNodes/2)) * Math.PI; // Calculate the angle at which the element will be placed.
+                                           // For a semicircle, we would use (i / numNodes) * Math.PI.
+     x = (radius * Math.cos(angle)) + (width/2); // Calculate the x position of the element.
+     y = (radius * Math.sin(angle)) + (width/2); // Calculate the y position of the element.
+     nodes.push({'id': i, 'x': x, 'y': y});
+    }
+    return nodes;
+  }

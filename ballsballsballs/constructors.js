@@ -14,12 +14,14 @@ function Ball(x, y, radius) {
         ctx.fillStyle = this.color;
         ctx.fill();
         ctx.strokeStyle = 'rgba(0, 0, 0, 0.6)';
-        ctx.stroke();
+        //ctx.stroke();
         ctx.closePath();
     };
     this.speed = function() {
         // magnitude of velocity vector
-        return Math.sqrt(this.dx * this.dx + this.dy * this.dy);
+        var tmp =  Math.sqrt(this.dx * this.dx + this.dy * this.dy);
+        //console.log("tmp: " + tmp)
+        return 1;
     };
     this.angle = function() {
         //angle of ball with the x axis
