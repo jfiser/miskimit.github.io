@@ -225,11 +225,20 @@ function drawTween() {
    requestAnimationFrame(drawTween);
   }
 }
-
+function tweenBallsCenter(){
+  for(var i = 0; i < objArray.length; i++){
+    if(objArray[i].centerCirc_x != undefined){
+      TweenLite.to(objArray[i], 2, {
+        x: objArray[i].centerCirc_x,
+        y: objArray[i].centerCirc_y,
+        delay: .007*i,
+        ease: Expo.easeOut
+      });
+    }
+  }
+}
 function tweenBalls(){
   for(var i = 0; i < objArray.length; i++){
-    console.log("x: " + objArray[i].circle_x);
-    console.log("y: " + objArray[i].circle_y);
     
     TweenLite.to(objArray[i], 2, {
       x: objArray[i].circle_x,
@@ -268,12 +277,44 @@ function setCircles_GOOD(numNodes, radius, ballRadius){
             tmpBall.dy = 0;
             objArray[objArray.length] = tmpBall;    
             i++;
+            j+=4;
+        }
+        k++;
+    }
+
+}
+function setCirclesToCenter(numNodes, radius, ballRadius){
+    var angle, x, y;
+    var spaceBetween = ballRadius + 5; //15; 
+    // center of the circles
+    
+    var k = 1;
+    var i = 0;
+
+    while ( i < numNodes ) {
+        // number of elements on this circle
+        var steps = k * 6;
+        // angular distance between elements
+        var angle_range = 2 * Math.PI / steps;
+        // every circle is bigger then the previuos of the same amount
+        //var radius = k * 30;
+        var radius = k * (ballRadius + spaceBetween);
+        var j = 0;
+        while ( j < steps  &&  i < numNodes ) {
+            var angle = j * angle_range;
+            var circle_x = Math.round(CENTER_X + radius * Math.cos(angle));
+            var circle_y = Math.round(CENTER_Y + radius * Math.sin(angle));
+
+            objArray[i].centerCirc_x = circle_x;
+            objArray[i].centerCirc_y = circle_y;
+            i++;
             j++;
         }
         k++;
     }
 
 }
+
 function setCircles(numNodes, radius, ballRadius){
     var angle, x, y;
     var spaceBetween = ballRadius + 5; //15; 
@@ -295,7 +336,7 @@ function setCircles(numNodes, radius, ballRadius){
             var circle_x = Math.round(CENTER_X + radius * Math.cos(angle));
             var circle_y = Math.round(CENTER_Y + radius * Math.sin(angle));
 
-            var tmpBall = new Ball(CENTER_X, CENTER_Y, circle_x, circle_y, ballRadius);
+            var tmpBall = new Ball(234,460, circle_x, circle_y, ballRadius);
             tmpBall.dx = 0;
             tmpBall.dy = 0;
             objArray[objArray.length] = tmpBall;    
@@ -308,8 +349,13 @@ function setCircles(numNodes, radius, ballRadius){
 }
 
 setCircles(100, 120, 12);
+setCirclesToCenter(45, 120, 12);
 //draw();
 
 drawTween();
 tweenBalls();
+setTimeout(function(){
+  tweenBallsCenter();
+}, 3000)
+
 //*********************** */
