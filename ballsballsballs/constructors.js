@@ -11,7 +11,7 @@ function Ball(start_x, start_y, circle_x, circle_y, radius) {
     this.circle_x = circle_x;
     this.circle_y = circle_y;
     
-    this.color = randomColor();
+    this.color = "rgb(255, 255, 78)"; //randomColor();
     this.draw = function() {
         ctx.beginPath();
 

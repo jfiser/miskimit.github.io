@@ -90,7 +90,9 @@ function arrowControls() {
 }
 
 function canvasBackground() {
-    canvas.style.backgroundColor = "rgb(215, 235, 240)";
+    //canvas.style.backgroundColor = "rgb(215, 235, 240)";
+    canvas.style.backgroundColor = "rgb(0, 0, 218)";
+    
 }
 
 function wallCollision(ball) {
@@ -229,10 +231,11 @@ function tweenBalls(){
     console.log("x: " + objArray[i].circle_x);
     console.log("y: " + objArray[i].circle_y);
     
-    TweenLite.to(objArray[i], 5, {
+    TweenLite.to(objArray[i], 2, {
       x: objArray[i].circle_x,
       y: objArray[i].circle_y,
-      ease: Elastic.easeOut
+      delay: .007*i,
+      ease: Expo.easeOut
     });
   }
 }
@@ -245,7 +248,7 @@ function setCircles_GOOD(numNodes, radius, ballRadius){
     // center of the circles
     
     var k = 5;
-    var i = 1;
+    var i =  1;
     while ( i < numNodes ) {
         // number of elements on this circle
         var steps = k * 6;
