@@ -1,12 +1,16 @@
-function Ball(x, y, radius) {
+
+function Ball(start_x, start_y, circle_x, circle_y, radius) {
     this.radius = radius;
     this.dx = randomDx();
     this.dy = randomDy();
     // mass is that of a sphere as opposed to circle.
     // it *does* make a difference.
     this.mass = this.radius * this.radius * this.radius;
-    this.x = x;
-    this.y = y;
+    this.x = start_x;
+    this.y = start_y;
+    this.circle_x = circle_x;
+    this.circle_y = circle_y;
+    
     this.color = randomColor();
     this.draw = function() {
         ctx.beginPath();
